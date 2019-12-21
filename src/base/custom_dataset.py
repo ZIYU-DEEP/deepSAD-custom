@@ -3,7 +3,6 @@ from torch.utils.data import Dataset
 from scipy.io import loadmat
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-import joblib
 from torchvision.datasets.utils import download_url
 
 import os
@@ -39,9 +38,9 @@ class CustomDataset(Dataset):
         if simulate:
             self.simulate()
 
-        normal_data = joblib.load(self.normal_data_file)
+        normal_data = np.load(self.normal_data_file)
         print('Normal data: I am loaded!')
-        abnormal_data = joblib.load(self.abnormal_data_file)
+        abnormal_data = np.load(self.abnormal_data_file)
         print('Abnormal data: I am loaded!')
 
         y_normal=np.zeros(normal_data.shape[0])
