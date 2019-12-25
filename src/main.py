@@ -14,14 +14,10 @@ from datasets.main import load_dataset
 # Settings
 ################################################################################
 @click.command()
-@click.argument('--dataset_name',
-                type=str,
-                default='custom')
-@click.argument('--net_name', type=str,
-                default='custom_lstm')
+@click.argument('--dataset_name', type=str)
+@click.argument('--net_name', type=str)
 @click.argument('--xp_path', type=click.Path(exists=True))
-@click.argument('--data_path', type=click.Path(exists=True),
-                default='/net/adv_spectrum/array_data')
+@click.argument('--data_path', type=click.Path(exists=True))
 @click.option('--load_config', type=click.Path(exists=True), default=None,
               help='Config JSON-file path (default: None).')
 @click.option('--load_model', type=click.Path(exists=True), default=None,
