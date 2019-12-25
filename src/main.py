@@ -14,13 +14,17 @@ from datasets.main import load_dataset
 # Settings
 ################################################################################
 @click.command()
-@click.argument('dataset_name', type=click.Choice(['mnist', 'fmnist', 'cifar10', 'arrhythmia', 'cardio', 'satellite',
-                                                   'satimage-2', 'shuttle', 'thyroid','custom']))
-@click.argument('net_name', type=click.Choice(['mnist_LeNet', 'fmnist_LeNet', 'cifar10_LeNet', 'arrhythmia_mlp',
+@click.option('--dataset_name',
+                type=click.Choice(['mnist', 'fmnist', 'cifar10', 'arrhythmia',
+                                   'cardio', 'satellite', 'satimage-2', 'shuttle', 'thyroid','custom']),
+                default='custom')
+@click.option('--net_name', type=click.Choice(['mnist_LeNet', 'fmnist_LeNet', 'cifar10_LeNet', 'arrhythmia_mlp',
                                                'cardio_mlp', 'satellite_mlp', 'satimage-2_mlp', 'shuttle_mlp',
-                                               'thyroid_mlp','custom_lstm']))
-@click.argument('xp_path', type=click.Path(exists=True))
-@click.argument('data_path', type=click.Path(exists=True))
+                                               'thyroid_mlp','custom_lstm']),
+                default='custom_lstm')
+@click.option('--xp_path', type=click.Path(exists=True))
+@click.option('--data_path', type=click.Path(exists=True),
+                default='/net/adv_spectrum/array_data')
 @click.option('--load_config', type=click.Path(exists=True), default=None,
               help='Config JSON-file path (default: None).')
 @click.option('--load_model', type=click.Path(exists=True), default=None,
@@ -36,10 +40,10 @@ from datasets.main import load_dataset
 @click.option('--seed', type=int, default=-1, help='Set seed. If -1, use randomization.')
 @click.option('--optimizer_name', type=click.Choice(['adam']), default='adam',
               help='Name of the optimizer to use for Deep SAD network training.')
-@click.option('--lr', type=float, default=0.001,
-              help='Initial learning rate for Deep SAD network training. Default=0.001')
-@click.option('--n_epochs', type=int, default=50, help='Number of epochs to train.')
-@click.option('--lr_milestone', type=int, default=0, multiple=True,
+@click.option('--lr', type=float, default=0.0001,
+              help='Initial learning rate for Deep SAD network training. Default=0.0001')
+@click.option('--n_epochs', type=int, default=60, help='Number of epochs to train.')
+@click.option('--lr_milestone', type=int, default=50, multiple=True,
               help='Lr scheduler milestones at which lr is multiplied by 0.1. Can be multiple and must be increasing.')
 @click.option('--batch_size', type=int, default=128, help='Batch size for mini-batch training.')
 @click.option('--weight_decay', type=float, default=1e-6,
@@ -48,13 +52,13 @@ from datasets.main import load_dataset
               help='Pretrain neural network parameters via autoencoder.')
 @click.option('--ae_optimizer_name', type=click.Choice(['adam']), default='adam',
               help='Name of the optimizer to use for autoencoder pretraining.')
-@click.option('--ae_lr', type=float, default=0.001,
-              help='Initial learning rate for autoencoder pretraining. Default=0.001')
+@click.option('--ae_lr', type=float, default=0.0001,
+              help='Initial learning rate for autoencoder pretraining. Default=0.0001')
 @click.option('--ae_n_epochs', type=int, default=60, help='Number of epochs to train autoencoder.')
-@click.option('--ae_lr_milestone', type=int, default=0, multiple=True,
+@click.option('--ae_lr_milestone', type=int, default=50, multiple=True,
               help='Lr scheduler milestones at which lr is multiplied by 0.1. Can be multiple and must be increasing.')
 @click.option('--ae_batch_size', type=int, default=128, help='Batch size for mini-batch autoencoder training.')
-@click.option('--ae_weight_decay', type=float, default=1e-6,
+@click.option('--ae_weight_decay', type=float, default=0.5e-3,
               help='Weight decay (L2 penalty) hyperparameter for autoencoder objective.')
 @click.option('--num_threads', type=int, default=0,
               help='Number of threads used for parallelizing CPU operations. 0 means that all resources are used.')
@@ -69,9 +73,9 @@ from datasets.main import load_dataset
                    'If 0, no anomalies are known.'
                    'If 1, outlier class as specified in --known_outlier_class option.'
                    'If > 1, the specified number of outlier classes will be sampled at random.')
-@click.option('--normal_data_file',type=str,default="",
+@click.option('--normal_data_file',type=str, default="ryerson_train_normal.npy",
               help="normal data filename")
-@click.option('--abnormal_data_file',type=str,default="",
+@click.option('--abnormal_data_file',type=str, default="",
               help="normal data filename")
 def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, eta,
          ratio_known_normal, ratio_known_outlier, ratio_pollution, device, seed,
