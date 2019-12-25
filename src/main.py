@@ -15,12 +15,9 @@ from datasets.main import load_dataset
 ################################################################################
 @click.command()
 @click.argument('--dataset_name',
-                type=click.Choice(['mnist', 'fmnist', 'cifar10', 'arrhythmia',
-                                   'cardio', 'satellite', 'satimage-2', 'shuttle', 'thyroid','custom']),
+                type=str,
                 default='custom')
-@click.argument('--net_name', type=click.Choice(['mnist_LeNet', 'fmnist_LeNet', 'cifar10_LeNet', 'arrhythmia_mlp',
-                                               'cardio_mlp', 'satellite_mlp', 'satimage-2_mlp', 'shuttle_mlp',
-                                               'thyroid_mlp','custom_lstm']),
+@click.argument('--net_name', type=str,
                 default='custom_lstm')
 @click.argument('--xp_path', type=click.Path(exists=True))
 @click.argument('--data_path', type=click.Path(exists=True),
