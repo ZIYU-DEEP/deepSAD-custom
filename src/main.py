@@ -100,7 +100,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    if os.path.exists(xp_path)==False:
+    if not os.path.exists(xp_path):
         os.mkdir(xp_path)
     log_file = xp_path + '/log.txt'
     file_handler = logging.FileHandler(log_file)
