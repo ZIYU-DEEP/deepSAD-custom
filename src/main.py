@@ -14,10 +14,13 @@ from datasets.main import load_dataset
 # Settings
 ################################################################################
 @click.command()
-@click.argument('--dataset_name', type=str)
-@click.argument('--net_name', type=str)
-@click.argument('--xp_path', type=click.Path(exists=True))
-@click.argument('--data_path', type=click.Path(exists=True))
+@click.argument('dataset_name', type=click.Choice(['mnist', 'fmnist', 'cifar10', 'arrhythmia', 'cardio', 'satellite',
+                                                   'satimage-2', 'shuttle', 'thyroid','custom']))
+@click.argument('net_name', type=click.Choice(['mnist_LeNet', 'fmnist_LeNet', 'cifar10_LeNet', 'arrhythmia_mlp',
+                                               'cardio_mlp', 'satellite_mlp', 'satimage-2_mlp', 'shuttle_mlp',
+                                               'thyroid_mlp','custom_lstm']))
+@click.argument('xp_path', type=click.Path(exists=True))
+@click.argument('data_path', type=click.Path(exists=True))
 @click.option('--load_config', type=click.Path(exists=True), default=None,
               help='Config JSON-file path (default: None).')
 @click.option('--load_model', type=click.Path(exists=True), default=None,
