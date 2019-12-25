@@ -73,6 +73,8 @@ from datasets.main import load_dataset
               help="normal data filename")
 @click.option('--abnormal_data_file',type=str,default="",
               help="normal data filename")
+@click.option('--txt_result_file',type=str, default="/net/adv_spectrum/SADlog/result_txt/full_results.txt",
+              help="The txt file which consists of detection rates across different experiements.")
 
 
 def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, eta,
@@ -80,7 +82,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
          optimizer_name, lr, n_epochs, lr_milestone, batch_size, weight_decay,
          pretrain, ae_optimizer_name, ae_lr, ae_n_epochs, ae_lr_milestone, ae_batch_size, ae_weight_decay,
          num_threads, n_jobs_dataloader, normal_class, known_outlier_class, n_known_outlier_classes,
-         normal_data_file,abnormal_data_file):
+         normal_data_file,abnormal_data_file, txt_result_file):
     """
     Deep SAD, a method for deep semi-supervised anomaly detection.
 
@@ -217,11 +219,25 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     result_df['indices'] = indices
     result_df['labels'] = labels
     result_df['scores'] = scores
-    result_df.to_pickle('{}/result_df_{}_{}.pkl'.format(xp_path,
-                                                        normal_data_file,
-                                                        abnormal_data_file))
-    idx_all_sorted = indices[np.argsort(scores)]  # from lowest to highest score
-    idx_normal_sorted = indices[labels == 0][np.argsort(scores[labels == 0])]  # from lowest to highest score
+    result_df_path = '{}/result_df_{}_{}.pkl'.format(xp_path,
+                                                     normal_data_file,
+                                                     abnormal_data_file)
+    result_df.to_pickle(result_df_path)
+
+    # Write the file for detection rate
+    result_df.drop('indices', inplace=True, axis=1)
+    df_normal = result_df[result_df.labels == 0]
+    df_abnormal = result_df[result_df.labels == 1]
+    cut = df_normal.scores.quantile(0.95)
+    y = [1 if e > cut else 0 for e in df_abnormal['scores'].values]
+    f = open(txt_result_file, 'a')
+    f.write('=====================\n')
+    f.write('[DataFrame Name] {}\n'.format(result_df_path))
+    f.write('[Normal to Abnormal Ratio] 1:{}\n'.format(
+        len(df_abnormal) / len(df_normal)))
+    f.write('[Detection Rate] {}\n'.format(sum(y) / len(y)))
+    f.write('=====================\n\n')
+    f.close()
 
 
 if __name__ == '__main__':
