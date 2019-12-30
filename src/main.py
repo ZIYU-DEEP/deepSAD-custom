@@ -8,6 +8,7 @@ import os
 from utils.config import Config
 from DeepSAD import DeepSAD
 from datasets.main import load_dataset
+from sklearn.metrics import roc_auc_score
 
 
 ################################################################################
@@ -184,6 +185,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
 
         # Save pretraining results
         deepSAD.save_ae_results(export_json=xp_path + '/ae_results.json')
+        pretrain_auc = deepSAD.ae_results['test_auc']
 
     # Log training details
     logger.info('Training optimizer: %s' % cfg.settings['optimizer_name'])
@@ -213,6 +215,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     cfg.save_config(export_json=xp_path + '/config.json')
 
     # Plot most anomalous and most normal test samples
+    train_auc = deepSAD.results['test_auc']
     indices, labels, scores = zip(*deepSAD.results['test_scores'])
     indices, labels, scores = np.array(indices), np.array(labels), np.array(scores)
     result_df = pd.DataFrame()
@@ -235,6 +238,9 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     f.write('[DataFrame Name] {}\n'.format(result_df_path))
     f.write('[Normal to Abnormal Ratio] 1:{}\n'.format(
         len(df_abnormal) / len(df_normal)))
+    if pretrain:
+        f.write('[Pretrain AUC] {}\n'.format(pretrain_auc))
+    f.write('[Train AUC] {}\n'.format(train_auc))
     f.write('[Detection Rate] {}\n'.format(sum(y) / len(y)))
     f.write('=====================\n\n')
     f.close()
