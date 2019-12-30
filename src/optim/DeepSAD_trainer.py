@@ -58,17 +58,17 @@ class DeepSADTrainer(BaseTrainer):
         start_time = time.time()
         net.train()
         for epoch in range(self.n_epochs):
-
-
             if epoch in self.lr_milestones:
-                logger.info('  LR scheduler: new learning rate is %g' % float(scheduler.get_lr()[0]))
+                logger.info('  LR scheduler: new learning rate is %g' %
+                            float(scheduler.get_lr()[0]))
 
             epoch_loss = 0.0
             n_batches = 0
             epoch_start_time = time.time()
             for data in train_loader:
                 inputs, _, semi_targets, _ = data
-                inputs, semi_targets = inputs.to(self.device), semi_targets.to(self.device)
+                inputs, semi_targets = inputs.to(self.device), \
+                                       semi_targets.to(self.device)
 
                 # Zero the network parameter gradients
                 optimizer.zero_grad()
@@ -76,7 +76,10 @@ class DeepSADTrainer(BaseTrainer):
                 # Update network parameters via backpropagation: forward + backward + optimize
                 outputs = net(inputs)
                 dist = torch.sum((outputs - self.c) ** 2, dim=1)
-                losses = torch.where(semi_targets == 0, dist, self.eta * ((dist + self.eps) ** semi_targets.float()))
+                losses = torch.where(semi_targets == 0,
+                                     dist,
+                                     self.eta * ((dist + self.eps) **
+                                                 (- semi_targets).float()))
                 loss = torch.mean(losses)
                 loss.backward()
                 optimizer.step()
@@ -86,7 +89,8 @@ class DeepSADTrainer(BaseTrainer):
             scheduler.step()
             # log epoch statistics
             epoch_train_time = time.time() - epoch_start_time
-            logger.info(f'| Epoch: {epoch + 1:03}/{self.n_epochs:03} | Train Time: {epoch_train_time:.3f}s '
+            logger.info(f'| Epoch: {epoch + 1:03}/{self.n_epochs:03} | '
+                        f'Train Time: {epoch_train_time:.3f}s '
                         f'| Train Loss: {epoch_loss / n_batches:.6f} |')
 
         self.train_time = time.time() - start_time
@@ -99,7 +103,8 @@ class DeepSADTrainer(BaseTrainer):
         logger = logging.getLogger()
 
         # Get test data loader
-        _, test_loader = dataset.loaders(batch_size=self.batch_size, num_workers=self.n_jobs_dataloader)
+        _, test_loader = dataset.loaders(batch_size=self.batch_size,
+                                         num_workers=self.n_jobs_dataloader)
 
         # Set device for network
         net = net.to(self.device)
@@ -114,7 +119,6 @@ class DeepSADTrainer(BaseTrainer):
         with torch.no_grad():
             for data in test_loader:
                 inputs, labels, semi_targets, idx = data
-
                 inputs = inputs.to(self.device)
                 labels = labels.to(self.device)
                 semi_targets = semi_targets.to(self.device)
@@ -124,7 +128,8 @@ class DeepSADTrainer(BaseTrainer):
                 dist = torch.sum((outputs - self.c) ** 2, dim=1)
                 losses = torch.where(semi_targets == 0,
                                      dist,
-                                     self.eta * ((dist + self.eps) ** (- semi_targets).float()))
+                                     self.eta * ((dist + self.eps) **
+                                                 (- semi_targets).float()))
                 loss = torch.mean(losses)
                 scores = dist
 
