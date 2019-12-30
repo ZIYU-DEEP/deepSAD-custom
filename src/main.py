@@ -82,7 +82,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
          optimizer_name, lr, n_epochs, lr_milestone, batch_size, weight_decay,
          pretrain, ae_optimizer_name, ae_lr, ae_n_epochs, ae_lr_milestone, ae_batch_size, ae_weight_decay,
          num_threads, n_jobs_dataloader, normal_class, known_outlier_class, n_known_outlier_classes,
-         normal_data_file,abnormal_data_file, txt_result_file):
+         normal_data_file,abnormal_data_file, txt_result_file, train):
     """
     Deep SAD, a method for deep semi-supervised anomaly detection.
 
