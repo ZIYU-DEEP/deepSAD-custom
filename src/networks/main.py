@@ -22,10 +22,10 @@ def build_network(net_name, ae_net=None):
 
     net = None
     if net_name == "custom_lstm":
-        net= LSTM_Net(rep_dim=2)
+        net = LSTM_Net(rep_dim=2)
 
     if net_name == "ed_lstm":
-        net= ed_LSTM_Net(rep_dim=2)
+        net = ed_LSTM_Net(rep_dim=2)
 
     if net_name == 'mnist_LeNet':
         net = MNIST_LeNet()
@@ -146,6 +146,6 @@ def build_autoencoder(net_name):
         ae_net = LSTM_Autoencoder(rep_dim=2)
 
     if net_name == "ed_lstm":
-        ae_net= ed_LSTM_Net(rep_dim=2)
+        ae_net = ed_LSTM_Autoencoder(rep_dim=2)
 
     return ae_net
