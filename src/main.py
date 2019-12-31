@@ -231,7 +231,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     result_df.drop('indices', inplace=True, axis=1)
     df_normal = result_df[result_df.labels == 0]
     df_abnormal = result_df[result_df.labels == 1]
-    cut = df_normal.scores.quantile(0.95)
+    cut = df_normal.scores.quantile(0.99)
     y = [1 if e > cut else 0 for e in df_abnormal['scores'].values]
     f = open(txt_result_file, 'a')
     f.write('=====================\n')
