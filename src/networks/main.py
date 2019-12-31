@@ -100,7 +100,7 @@ def build_autoencoder(net_name):
                             'fmnist_LeNet', 'fmnist_DGM_M1M2',
                             'cifar10_LeNet', 'cifar10_DGM_M1M2',
                             'arrhythmia_mlp', 'cardio_mlp', 'satellite_mlp', 'satimage-2_mlp', 'shuttle_mlp',
-                            'thyroid_mlp','custom_lstm')
+                            'thyroid_mlp','custom_lstm', 'ed_lstm')
 
     assert net_name in implemented_networks
 
