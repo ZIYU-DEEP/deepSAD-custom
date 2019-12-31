@@ -3,7 +3,8 @@ from .fmnist_LeNet import FashionMNIST_LeNet, FashionMNIST_LeNet_Autoencoder
 from .cifar10_LeNet import CIFAR10_LeNet, CIFAR10_LeNet_Autoencoder
 from .mlp import MLP, MLP_Autoencoder
 from .vae import VariationalAutoencoder
-from .lstm import LSTM_Net,LSTM_Autoencoder
+from .lstm import LSTM_Net, LSTM_Autoencoder
+from .ed_lstm import ed_LSTM_Net, ed_LSTM_Autoencoder
 from .dgm import DeepGenerativeModel, StackedDeepGenerativeModel
 
 
@@ -14,14 +15,17 @@ def build_network(net_name, ae_net=None):
                             'fmnist_LeNet', 'fmnist_DGM_M2', 'fmnist_DGM_M1M2',
                             'cifar10_LeNet', 'cifar10_DGM_M2', 'cifar10_DGM_M1M2',
                             'arrhythmia_mlp', 'cardio_mlp', 'satellite_mlp', 'satimage-2_mlp', 'shuttle_mlp',
-                            'thyroid_mlp','custom_lstm',
+                            'thyroid_mlp','custom_lstm', 'ed_lstm',
                             'arrhythmia_DGM_M2', 'cardio_DGM_M2', 'satellite_DGM_M2', 'satimage-2_DGM_M2',
                             'shuttle_DGM_M2', 'thyroid_DGM_M2','custom_DGM_M2')
     assert net_name in implemented_networks
 
     net = None
     if net_name == "custom_lstm":
-        net= LSTM_Net( rep_dim=2)
+        net= LSTM_Net(rep_dim=2)
+
+    if net_name == "ed_lstm":
+        net= ed_LSTM_Net(rep_dim=2)
 
     if net_name == 'mnist_LeNet':
         net = MNIST_LeNet()
@@ -137,7 +141,11 @@ def build_autoencoder(net_name):
 
     if net_name == 'thyroid_mlp':
         ae_net = MLP_Autoencoder(x_dim=6, h_dims=[32, 16], rep_dim=4, bias=False)
+
     if net_name == 'custom_lstm':
         ae_net = LSTM_Autoencoder(rep_dim=2)
+
+    if net_name == "ed_lstm":
+        ae_net= ed_LSTM_Net(rep_dim=2)
 
     return ae_net
