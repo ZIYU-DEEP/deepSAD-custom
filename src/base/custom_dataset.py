@@ -1,9 +1,6 @@
 from pathlib import Path
 from torch.utils.data import Dataset
-from scipy.io import loadmat
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from torchvision.datasets.utils import download_url
 
 import os
 import torch

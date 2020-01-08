@@ -214,7 +214,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     deepSAD.save_model(export_model=xp_path + '/model.tar')
     cfg.save_config(export_json=xp_path + '/config.json')
 
-    # Plot most anomalous and most normal test samples
+    # Generate result DataFrame
     train_auc = deepSAD.results['test_auc']
     indices, labels, scores = zip(*deepSAD.results['test_scores'])
     indices, labels, scores = np.array(indices), np.array(labels), np.array(scores)
