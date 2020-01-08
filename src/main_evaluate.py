@@ -64,7 +64,7 @@ result_df.to_pickle(result_df_path)
 result_df.drop('indices', inplace=True, axis=1)
 df_normal = result_df[result_df.labels == 0]
 df_abnormal = result_df[result_df.labels == 1]
-cut = df_normal.scores.quantile(0.99)
+cut = df_normal.scores.quantile(0.95)
 y = [1 if e > cut else 0 for e in df_abnormal['scores'].values]
 f = open(txt_result_file, 'a')
 f.write('=====================\n')
