@@ -55,9 +55,9 @@ result_df = pd.DataFrame()
 result_df['indices'] = indices
 result_df['labels'] = labels
 result_df['scores'] = scores
-result_df_path = '{}/result_df_{}_{}.pkl'.format(result_path,
-                                                 normal_data_file,
-                                                 abnormal_data_file)
+result_df_path = '{}/result_df_train_{}_eval_{}.pkl'.format(result_path,
+                                                            train_source,
+                                                            eval_source)
 result_df.to_pickle(result_df_path)
 
 # Write the file for detection rate
