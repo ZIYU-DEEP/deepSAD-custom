@@ -22,7 +22,7 @@ normal_data_file = 'ryerson_train_normal.npy'
 abnormal_data_file = 'ryerson_ab_train_{}_abnormal.npy'.format(eval_source)
 random_state = 42
 load_model = '/net/adv_spectrum/SADlog/{}/model.tar'.format(train_source)
-txt_result_file = '/net/adv_spectrum/SADlog/result_txt/full_results_eval.txt'
+txt_result_file = '/net/adv_spectrum/SADlog_eval/result_txt/full_results_eval.txt'
 
 if not os.path.exists(result_path):
     print('Detect new result path!')
