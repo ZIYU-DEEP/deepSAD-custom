@@ -8,7 +8,7 @@ len_3 = normal_len // 10
 
 file_name = str(sys.argv[1])  # e.g. ryerson_ab_train_downtown_abnormal
 abnormal_path = '/net/adv_spectrum/array_data/'
-input_path = abnormal_path + '{}.npy'.format(filename)
+input_path = abnormal_path + '{}.npy'.format(file_name)
 
 output_path_1 = input_path.replace('_abnormal', '_3199_abnormal')
 output_path_2 = output_path_1.replace('3199', '1599')
