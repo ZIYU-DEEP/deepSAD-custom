@@ -231,7 +231,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     result_df.drop('indices', inplace=True, axis=1)
     df_normal = result_df[result_df.labels == 0]
     df_abnormal = result_df[result_df.labels == 1]
-    cut = df_normal.scores.quantile(0.99)
+    cut = df_normal.scores.quantile(0.95)
     y = [1 if e > cut else 0 for e in df_abnormal['scores'].values]
     f = open(txt_result_file, 'a')
     f.write('=====================\n')
@@ -242,6 +242,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
         f.write('[Pretrain AUC] {}\n'.format(pretrain_auc))
     f.write('[Train AUC] {}\n'.format(train_auc))
     f.write('[Detection Rate] {}\n'.format(sum(y) / len(y)))
+    f.write('[False Positive Rate] 0.05'
     f.write('=====================\n\n')
     f.close()
 
