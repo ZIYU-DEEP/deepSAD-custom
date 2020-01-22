@@ -242,7 +242,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
         f.write('[Pretrain AUC] {}\n'.format(pretrain_auc))
     f.write('[Train AUC] {}\n'.format(train_auc))
     f.write('[Detection Rate] {}\n'.format(sum(y) / len(y)))
-    f.write('[False Positive Rate] 0.05'
+    f.write('[False Positive Rate] 0.05')
     f.write('=====================\n\n')
     f.close()
 
