@@ -8,6 +8,7 @@ from datasets.main_eval import load_dataset_eval
 
 train_source = str(sys.argv[1])  # e.g. JCL
 eval_source = str(sys.argv[2])  # e.g. downtown_319
+fp_rate = float(sys.argv[3])  # e.g. 0.05
 
 net_name = 'custom_lstm'
 result_path = '/net/adv_spectrum/SADlog_eval/train_{}_eval_{}'.format(
@@ -70,7 +71,7 @@ result_df.to_pickle(result_df_path)
 result_df.drop('indices', inplace=True, axis=1)
 df_normal = result_df[result_df.labels == 0]
 df_abnormal = result_df[result_df.labels == 1]
-cut = df_normal.scores.quantile(0.95)
+cut = df_normal.scores.quantile(1 - fp_rate)
 y = [1 if e > cut else 0 for e in df_abnormal['scores'].values]
 f = open(txt_result_file, 'a')
 f.write('=====================\n')
@@ -79,6 +80,7 @@ f.write('[Normal to Abnormal Ratio] 1:{}\n'
         .format(len(df_abnormal) / len(df_normal)))
 f.write('[Train AUC] {}\n'.format(train_auc))
 f.write('[Detection Rate] {}\n'.format(sum(y) / len(y)))
+f.write('[FP Rate] {}\n'.format(fp_rate))
 f.write('=====================\n\n')
 f.close()
 print('[Detection Rate] {}\n'.format(sum(y) / len(y)))
