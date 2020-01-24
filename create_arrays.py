@@ -44,7 +44,7 @@ def txt_to_series(file_path, n_channels=128):
             features.append(x)
 
     series = np.array(features).reshape((-1, n_channels)).astype('float64')
-    return
+    return series
 
 
 series_list = []
