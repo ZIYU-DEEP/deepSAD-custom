@@ -2,7 +2,7 @@
 This is repository modifying some part of the original Deep SAD [code](https://github.com/lukasruff/Deep-SAD-PyTorch). The work is ongoing.
 
 Currently, major modifications include:
-1. Adding the function to support custom datasets.
+1. Adding the function (adding some classes in base, datasets, net, main and so on) to support custom datasets.
 2. Adding a LSTM autoencoder to support learning of multivariate time series. (Currently you should change the dimensions in it.)
 3. Adding a `main_evaluation.py` which provides a more flexible evaluation for the model. Basically, it loads a model and evaluates it on any data you choose.
 
