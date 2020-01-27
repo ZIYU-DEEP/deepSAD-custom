@@ -8,8 +8,7 @@ Currently, major modifications include:
 
 
 ## Citation
-You could find a preprint of the Deep Semi-Supervised Anomaly Detection paper on arXiv 
-[https://arxiv.org/abs/1906.02694](https://arxiv.org/abs/1906.02694).
+You could find a preprint of the Deep Semi-Supervised Anomaly Detection paper on [arXiv](https://arxiv.org/abs/1906.02694).
 
 ```
 @article{ruff2019,
