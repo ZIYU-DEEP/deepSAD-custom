@@ -6,6 +6,8 @@ Currently, major modifications include:
 2. Adding a LSTM autoencoder to support learning of multivariate time series. (Currently you should change the dimensions in it.)
 3. Adding a `main_evaluation.py` which provides a more flexible evaluation for the model. Basically, it loads a model and evaluates it on any data you choose.
 
+By the way, based on our data, it seems that the Deep SAD model performs much better without the pretraining phase, which may weaken the argument in the original paper on the upper bound for the entropy of the latent distribution. In other words, it seems that there is no need to maximize the mutual information of $I(X, Z)$, given empirical results.
+
 
 ## Citation
 You could find a preprint of the Deep Semi-Supervised Anomaly Detection paper on [arXiv](https://arxiv.org/abs/1906.02694).
