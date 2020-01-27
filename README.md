@@ -1,5 +1,5 @@
 # Deep SAD: A Method for Deep Semi-Supervised Anomaly Detection (Custom)
-This is repository modifying some part of the original Deep SAD [code](https://github.com/lukasruff/Deep-SAD-PyTorch). The work is ongoing.
+This is repository modifying some part of the original Deep SAD [code](https://github.com/lukasruff/Deep-SAD-PyTorch). The work is ongoing. Later I would simplify its structure for easier understanding.
 
 Currently, major modifications include:
 1. Adding the function (adding some classes in base, datasets, net, main and so on) to support custom datasets.
