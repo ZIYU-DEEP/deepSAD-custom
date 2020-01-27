@@ -58,7 +58,7 @@ class DeepSAD(object):
         self.net_name = net_name
         self.net = build_network(net_name)
 
-    def train(self, dataset: BaseADDataset, optimizer_name: str = 'adam', lr: float = 0.001, n_epochs: int = 80,
+    def train(self, dataset: BaseADDataset, optimizer_name: str = 'adam', lr: float = 0.001, n_epochs: int = 88,
               lr_milestones: tuple = (), batch_size: int = 128, weight_decay: float = 1e-6, device: str = 'cuda',
               n_jobs_dataloader: int = 0):
         """Trains the Deep SAD model on the training data."""
@@ -85,7 +85,7 @@ class DeepSAD(object):
         self.results['test_time'] = self.trainer.test_time
         self.results['test_scores'] = self.trainer.test_scores
 
-    def pretrain(self, dataset: BaseADDataset, optimizer_name: str = 'adam', lr: float = 0.001, n_epochs: int = 60,
+    def pretrain(self, dataset: BaseADDataset, optimizer_name: str = 'adam', lr: float = 0.001, n_epochs: int = 88,
                  lr_milestones: tuple = (), batch_size: int = 128, weight_decay: float = 1e-6, device: str = 'cuda',
                  n_jobs_dataloader: int = 0):
         """Pretrains the weights for the Deep SAD network phi via autoencoder."""
@@ -130,7 +130,8 @@ class DeepSAD(object):
         """Save Deep SAD model to export_model."""
 
         net_dict = self.net.state_dict()
-        ae_net_dict = self.ae_net.state_dict() if save_ae else None
+        # ae_net_dict = self.ae_net.state_dict() if save_ae else None
+        ae_net_dict = None
 
         torch.save({'c': self.c,
                     'net_dict': net_dict,

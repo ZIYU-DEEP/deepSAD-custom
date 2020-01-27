@@ -39,7 +39,7 @@ from sklearn.metrics import roc_auc_score
               help='Name of the optimizer to use for Deep SAD network training.')
 @click.option('--lr', type=float, default=0.001,
               help='Initial learning rate for Deep SAD network training. Default=0.001')
-@click.option('--n_epochs', type=int, default=50, help='Number of epochs to train.')
+@click.option('--n_epochs', type=int, default=88, help='Number of epochs to train.')
 @click.option('--lr_milestone', type=int, default=0, multiple=True,
               help='Lr scheduler milestones at which lr is multiplied by 0.1. Can be multiple and must be increasing.')
 @click.option('--batch_size', type=int, default=128, help='Batch size for mini-batch training.')
