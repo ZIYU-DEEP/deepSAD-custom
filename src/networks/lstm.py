@@ -11,16 +11,16 @@ class LSTM_Net(BaseNet):
         super().__init__()
 
         self.rep_dim = rep_dim
-        self.lstm1 = nn.GRU(128, 64, batch_first=True)
-        self.lstm2 = nn.GRU(64, 32, batch_first=True)
-        self.lstm3 = nn.GRU(32, 16, batch_first=True)
-        self.fc1 = nn.Linear(16 * 1000, self.rep_dim, bias=False)
+        self.lstm1 = nn.GRU(128, 128, batch_first=True)
+#         self.lstm2 = nn.GRU(64, 32, batch_first=True)
+#         self.lstm3 = nn.GRU(32, 16, batch_first=True)
+        self.fc1 = nn.Linear(128 * 1000, self.rep_dim, bias=False)
 
     def forward(self, x):
         x, _ = self.lstm1(x)
-        x, _ = self.lstm2(x)
-        x, _ = self.lstm3(x)
-        x = x.reshape(x.size(0), 16 * 1000).contiguous()
+#         x, _ = self.lstm2(x)
+#         x, _ = self.lstm3(x)
+        x = x.reshape(x.size(0), 128 * 1000).contiguous()
         x = self.fc1(x)
         return x
 
@@ -33,17 +33,17 @@ class LSTM_Decoder(BaseNet):
         self.rep_dim = rep_dim
 
         # Decoder network
-        self.lstm1 = nn.GRU(16, 32, batch_first=True)
-        self.lstm2 = nn.GRU(32, 64, batch_first=True)
-        self.lstm3 = nn.GRU(64, 128, batch_first=True)
+        self.lstm1 = nn.GRU(128, 128, batch_first=True)
+#         self.lstm2 = nn.GRU(32, 64, batch_first=True)
+#         self.lstm3 = nn.GRU(64, 128, batch_first=True)
         self.fc1 = nn.Linear(self.rep_dim, 128 * 1000)
 
     def forward(self, x):
         x = self.fc1(x)
-        x = x.view(x.size(0), 1000, 16).contiguous()
+        x = x.view(x.size(0), 1000, 128).contiguous()
         x, _ = self.lstm1(x)
-        x, _ = self.lstm2(x)
-        x, _ = self.lstm3(x)
+#         x, _ = self.lstm2(x)
+#         x, _ = self.lstm3(x)
         x = torch.sigmoid(x)
         return x
 
