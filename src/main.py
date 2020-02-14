@@ -222,9 +222,7 @@ def main(dataset_name, net_name, xp_path, data_path, load_config, load_model, et
     result_df['indices'] = indices
     result_df['labels'] = labels
     result_df['scores'] = scores
-    result_df_path = '{}/result_df_{}_{}.pkl'.format(xp_path,
-                                                     normal_data_file,
-                                                     abnormal_data_file)
+    result_df_path = '{}/result_df_{}.pkl'.format(xp_path, xp_path)
     result_df.to_pickle(result_df_path)
 
     # Write the file for detection rate
