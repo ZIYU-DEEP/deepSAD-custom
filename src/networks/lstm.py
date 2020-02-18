@@ -7,7 +7,7 @@ from base.base_net import BaseNet
 
 class LSTM_Net(BaseNet):
 
-    def __init__(self, rep_dim=32):
+    def __init__(self, rep_dim=2):
         super().__init__()
 
         self.rep_dim = rep_dim
@@ -27,7 +27,7 @@ class LSTM_Net(BaseNet):
 
 class LSTM_Decoder(BaseNet):
 
-    def __init__(self, rep_dim=32):
+    def __init__(self, rep_dim=2):
         super().__init__()
 
         self.rep_dim = rep_dim
@@ -49,7 +49,7 @@ class LSTM_Decoder(BaseNet):
 
 
 class LSTM_Autoencoder(BaseNet):
-    def __init__(self, rep_dim=32):
+    def __init__(self, rep_dim=2):
         super().__init__()
 
         self.rep_dim = rep_dim
