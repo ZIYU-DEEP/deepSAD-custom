@@ -9,7 +9,7 @@ import torch
 window_size = 1000
 normality = str(sys.argv[1])  # e.g. abnormal
 source = str(sys.argv[2])  # e.g. ryerson_ab_train_sigOver
-normal_len = int(sys.argv[3])  # e.g. for ryerson_train, 3199; for campus_drive, 319; for downtown, 3110
+normal_len = int(sys.argv[3])  # e.g. for ryerson_train, 3199; for campus_drive, 1086; for downtown, 3110
 outname = '{}_{}.npy'.format(source, normality)
 input_path = '/net/adv_spectrum/data/feature/downsample_10/{}/{}/1000_250/'.format(normality, source)
 output_path = '/net/adv_spectrum/array_data/{}'.format(outname)
