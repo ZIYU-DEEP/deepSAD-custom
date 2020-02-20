@@ -1,0 +1,11 @@
+python main_evaluate.py ryerson_ab_train_sigOver_319 sigOver_1599 ryerson_train_1599_normal.npy ryerson_ab_train_sigOver_1599_abnormal.npy 0.05
+
+python main_evaluate.py ryerson_ab_train_sigOver_319 LOS-5M-USRP1_1599 ryerson_train_1599_normal.npy ryerson_ab_train_LOS-5M-USRP1_1599_abnormal.npy 0.05
+
+python main_evaluate.py ryerson_ab_train_sigOver_319 LOS-5M-USRP2_1599 ryerson_train_1599_normal.npy ryerson_ab_train_LOS-5M-USRP2_1599_abnormal.npy 0.05
+
+python main_evaluate.py ryerson_ab_train_sigOver_319 LOS-5M-USRP3_1599 ryerson_train_1599_normal.npy ryerson_ab_train_LOS-5M-USRP3_1599_abnormal.npy 0.05
+
+python main_evaluate.py ryerson_ab_train_sigOver_319 NLOS-5M-USRP1_1599 ryerson_train_1599_normal.npy ryerson_ab_train_NLOS-5M-USRP1_1599_abnormal.npy 0.05
+
+python main_evaluate.py ryerson_ab_train_sigOver_319 Dynamics-5M-USRP1_1599 ryerson_train_1599_normal.npy ryerson_ab_train_Dynamics-5M-USRP1_1599_abnormal.npy 0.05
