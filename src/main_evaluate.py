@@ -6,9 +6,11 @@ from DeepSAD_eval import DeepSAD_eval
 from datasets.main_eval import load_dataset_eval
 
 
-train_source = str(sys.argv[1])  # e.g. JCL
-eval_source = str(sys.argv[2])  # e.g. downtown_319
-fp_rate = float(sys.argv[3])  # e.g. 0.05
+train_source = str(sys.argv[1])  # e.g. ryerson_ab_train_sigOver_319
+eval_source = str(sys.argv[2])  # e.g. sigOver_319
+normal_data_file = str(sys.argv[3])  # e.g. ryerson_train_1599_normal.npy
+abnormal_data_file = str(sys.argv[4]) # e.g. ryerson_ab_train_sigOver_319_abnormal.npy 
+fp_rate = float(sys.argv[5])  # e.g. 0.05
 
 net_name = 'custom_lstm'
 result_path = '/net/adv_spectrum/SADlog_eval/train_{}_eval_{}'.format(
@@ -19,8 +21,7 @@ num_threads = 0
 n_jobs_dataloader = 0
 load_config = True
 device = 'cuda'
-normal_data_file = 'ryerson_train_normal.npy'
-abnormal_data_file = 'ryerson_ab_train_{}_abnormal.npy'.format(eval_source)
+
 random_state = 42
 load_model = '/net/adv_spectrum/SADlog/{}/model.tar'.format(train_source)
 txt_result_path = '/net/adv_spectrum/SADlog_eval/result_txt'
