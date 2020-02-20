@@ -1,9 +1,7 @@
-python create_arrays.py normal downtown downtown
-python create_arrays.py normal downtown downtown_sigOver_5ms
-python create_arrays.py normal downtown downtown_sigOver_10ms
-python create_arrays.py normal downtown downtown_sigOver_20ms
-python create_arrays.py normal downtown downtown_LOS-5M-USRP1
-python create_arrays.py normal downtown downtown_LOS-5M-USRP2
-python create_arrays.py normal downtown downtown_LOS-5M-USRP3
-python create_arrays.py normal downtown downtown_NLOS-5M-USRP1
-python create_arrays.py normal downtown downtown_Dynamics-5M-USRP1
+python create_squeeze_array.py abnormal downtown_sigOver_10ms 3110
+python create_squeeze_array.py abnormal downtown_sigOver_20ms 3110
+python create_squeeze_array.py abnormal downtown_LOS-5M-USRP1 3110
+python create_squeeze_array.py abnormal downtown_LOS-5M-USRP2 3110
+python create_squeeze_array.py abnormal downtown_LOS-5M-USRP3 3110
+python create_squeeze_array.py abnormal downtown_NLOS-5M-USRP1 3110
+python create_squeeze_array.py abnormal downtown_Dynamics-5M-USRP1 3110
