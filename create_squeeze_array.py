@@ -9,6 +9,7 @@ import torch
 window_size = 1000
 normality = str(sys.argv[1])  # e.g. abnormal
 source = str(sys.argv[2])  # e.g. ryerson_ab_train_sigOver
+normal_len = str(sys.argv[3])  # e.g. for ryerson_train, 3199; for campus_drive, 319; for downtown, 3110
 outname = '{}_{}.npy'.format(source, normality)
 input_path = '/net/adv_spectrum/data/feature/downsample_10/{}/{}/1000_250/'.format(normality, source)
 output_path = '/net/adv_spectrum/array_data/{}'.format(outname)
@@ -67,18 +68,20 @@ print('Done converting and concatenating!')
 np.save(output_path, X_full)
 print('The array has been saved at {}'.format(output_path))
 
-normal_len = 3199
-len_1 = normal_len
+if normal_len >= len(X_full):
+    len_1 = normal_len
+else:
+    len_1 = len(X_full)
 len_2 = normal_len // 2
 len_3 = normal_len // 10
 
 file_name = source + '_' + normality  # e.g. ryerson_ab_train_downtown_abnormal
-abnormal_path = '/net/adv_spectrum/array_data/'
-input_path = abnormal_path + '{}.npy'.format(file_name)
+new_path = '/net/adv_spectrum/array_data/'
+input_path = new_path + '{}.npy'.format(file_name)
 
-output_path_1 = input_path.replace('_abnormal', '_3199_abnormal')
-output_path_2 = output_path_1.replace('3199', '1599')
-output_path_3 = output_path_2.replace('1599', '319')
+output_path_1 = input_path.replace('_abnormal', '_big_abnormal')
+output_path_2 = output_path_1.replace('big', 'half')
+output_path_3 = output_path_2.replace('half', 'mini')
 print('Start processing!')
 
 
