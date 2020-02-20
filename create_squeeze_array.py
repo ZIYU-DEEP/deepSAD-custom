@@ -79,7 +79,7 @@ file_name = source + '_' + normality  # e.g. ryerson_ab_train_downtown_abnormal
 new_path = '/net/adv_spectrum/array_data/'
 input_path = new_path + '{}.npy'.format(file_name)
 
-output_path_1 = input_path.replace('_abnormal', '_big_abnormal')
+output_path_1 = input_path.replace('_{}'.format(normality), '_big_{}'.format(normality))
 output_path_2 = output_path_1.replace('big', 'half')
 output_path_3 = output_path_2.replace('half', 'mini')
 print('Start processing!')
