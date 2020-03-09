@@ -25,7 +25,7 @@ device = 'cuda'
 random_state = 42
 load_model = '/net/adv_spectrum/SADlog/{}/model.tar'.format(train_source)
 txt_result_path = '/net/adv_spectrum/SADlog_eval/result_txt'
-txt_result_file = txt_result_path + '/full_results_eval.txt'
+txt_result_file = txt_result_path + '/1_full_results_eval.txt'
 
 if not os.path.exists(result_path):
     print('Detect new result path!')
