@@ -20,7 +20,7 @@ from sklearn.metrics import roc_auc_score
 @click.argument('net_name', type=click.Choice(['mnist_LeNet', 'fmnist_LeNet', 'cifar10_LeNet', 'arrhythmia_mlp',
                                                'cardio_mlp', 'satellite_mlp', 'satimage-2_mlp', 'shuttle_mlp',
                                                'thyroid_mlp','custom_lstm', 'ed_lstm']))
-@click.argument('xp_path', type=click.Path(exists=True))
+@click.argument('xp_path')
 @click.argument('data_path', type=click.Path(exists=True))
 @click.option('--load_config', type=click.Path(exists=True), default=None,
               help='Config JSON-file path (default: None).')
